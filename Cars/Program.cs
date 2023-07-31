@@ -15,7 +15,11 @@ builder.Services.AddDbContext<CarContext>(
     options => options.UseSqlServer(builder.Configuration["ConnectionStrings:CarsDatabase"]));
 builder.Services.AddScoped<CarsService>();
 
+builder.Services.AddCors(e => e.AddDefaultPolicy(pol => pol.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
+
 var app = builder.Build();
+
+app.UseCors();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
